@@ -1,5 +1,6 @@
 package com.sparta.todos.service;
 
+import com.sparta.todos.dto.TodoDetailResponseDto;
 import com.sparta.todos.dto.TodoSaveRequestDto;
 import com.sparta.todos.dto.TodoSaveResponseDto;
 import com.sparta.todos.entity.Todo;
@@ -28,6 +29,19 @@ public class TodoService {
                 savedTodo.getTitle(),
                 savedTodo.getContents(),
                 savedTodo.getUsername()
+        );
+    }
+
+    public TodoDetailResponseDto getTodo(Long todoId) {
+        Todo todo = todoRepository.findById(todoId).orElseThrow(
+                ()-> new NullPointerException("Todo with id " + todoId + " not found")
+        );
+
+        return new TodoDetailResponseDto(
+                todo.getId(),
+                todo.getTitle(),
+                todo.getContents(),
+                todo.getUsername()
         );
     }
 }
